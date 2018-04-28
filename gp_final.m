@@ -1,7 +1,7 @@
 datasource = csvread('slice_localization_data.csv', 1, 0);
 randsq = randperm(size(datasource,1));
-xtr = datasource(randsq(1:500), 2:round(end/2));
-ytr = datasource(randsq(1:500), end);
+xtr = datasource(randsq(1:100), 2:round(end/2));
+ytr = datasource(randsq(1:100), end);
 gprMdl = fitrgp(xtr, ytr, 'FitMethod','sr','BasisFunction','linear',...
         'ActiveSetMethod','sgma','PredictMethod','fic',...
         'KernelFunction', 'squaredexponential','KernelParameters',[1 0.5 0.5]);
