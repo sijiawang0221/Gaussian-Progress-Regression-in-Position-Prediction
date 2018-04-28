@@ -4,7 +4,7 @@ xtr = datasource(randsq(1:100), 2:round(end/2));
 ytr = datasource(randsq(1:100), end);
 gprMdl = fitrgp(xtr, ytr, 'FitMethod','sr','BasisFunction','linear',...
         'ActiveSetMethod','sgma','PredictMethod','fic',...
-        'KernelFunction', 'squaredexponential','KernelParameters',[1 0.5 0.5]);
+        'KernelFunction', 'complexkernel','KernelParameters',[1 0.5 0.5]);
 gloss = zeros(1,20);
 rmse = zeros(1,20);
 
