@@ -1,10 +1,20 @@
 
 
 % This is a experiment for position prediction for reference within range [50,60]
-% Kernel function:  Squared Exponential
 % Training:         id: 0 ~ 70
 % Test id:          71 ~ 96
-% Result RMSE:      0.5379
+
+% Kernel function:  Squared Exponential
+% Result RMSE:      1.9926
+
+% Kernel function:  matern32
+% Result RMSE:      2.0079
+
+% Kernel function:  matern52
+% Result RMSE:      1.9996
+
+% Kernel function:  ardsquaredexponential
+% Result RMSE:      
 
 datasource = csvread('slice_localization_data.csv', 1, 0);
 
@@ -28,7 +38,7 @@ yTe = testData(testData5060, end);
 
 % Calculate RMSE
 yPred = predict(gprMdl, xTe);  
-RMSE = sqrt(mean(yTe - yPred).^2);
+RMSE = sqrt(mean((yTe - yPred).^2));
 
 
 
