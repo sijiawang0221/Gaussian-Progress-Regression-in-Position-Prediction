@@ -14,10 +14,7 @@
 % Result RMSE:      0.2385
 
 % Kernel function:  ardsquaredexponential
-% Result RMSE: 
-
-% SVM 
-% RMSE:             1.3044
+% Result RMSE:      
 
 
 % Filter data by reference in range [50,60]
@@ -51,9 +48,16 @@ RMSE = sqrt(mean((yTe - yPred).^2));
 
 % Training: SVM
 SVMmdl = fitrsvm(xTr,yTr);
+% ,'KernelFunction','gaussian','KernelScale',...
+%             'auto','Standardize',true
+%         , 'OptimizeHyperparameters','auto',...
+%             'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName',...
+%             'expected-improvement-plus'));
+
 yPredsvm = predict(SVMmdl, xTe);  
 RMSE_svm = sqrt(mean((yTe - yPredsvm).^2));
 
+yPred_tr_svm = predict(SVMmdl, xTr);
 
 
 
