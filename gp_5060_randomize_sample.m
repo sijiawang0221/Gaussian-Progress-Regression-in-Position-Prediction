@@ -34,15 +34,15 @@ yTr = dataFiltered(1:5000, end);
 xTe = dataFiltered(5001:end, 2:end-1);
 yTe = dataFiltered(5001:end, end);
 
-% Training
-gprMdl = fitrgp(xTr,yTr,'KernelFunction', 'ardsquaredexponential');
+% Training: GPR
+gprMdl = fitrgp(xTr,yTr,'KernelFunction', 'squaredexponential');
 
 % Calculate RMSE
 yPred = predict(gprMdl, xTe);  
 RMSE = sqrt(mean((yTe - yPred).^2));
 
 
-
+yPred_tr = predict(gprMdl, xTr);
 
 
 
