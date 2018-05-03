@@ -37,7 +37,12 @@ xTe = testData(testData5060, 2:end-1);
 yTe = testData(testData5060, end);
 
 % Training: GPR
-gprMdl = fitrgp(xTr,yTr,'PredictMethod','sr','FitMethod', 'fic','KernelFunction', 'squaredexponential','Sigma', 20);
+gprMdl = fitrgp(xTr,yTr,'KernelFunction', 'squaredexponential');
+
+% Training with automatic hyperparameters optimization
+% gprMdl = fitrgp(xTr, yTr, ...
+%      'OptimizeHyperparameters','all','HyperparameterOptimizationOptions',...
+%     struct('AcquisitionFunctionName','expected-improvement-plus'));
 
 % Calculate RMSE
 yPred = predict(gprMdl, xTe);  
@@ -49,17 +54,10 @@ plot(dif);
 
 % Training: SVM
 SVMmdl = fitrsvm(xTr,yTr);
-% ,'KernelFunction','gaussian','KernelScale',...
-%             'auto','Standardize',true
-%         , 'OptimizeHyperparameters','auto',...
-%             'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName',...
-%             'expected-improvement-plus'));
 
 yPredsvm = predict(SVMmdl, xTe);  
-RMSE = sqrt(mean((yTe - yPredsvm).^2));
+RMSE_svm = sqrt(mean((yTe - yPredsvm).^2));
 
-yPred_tr = predict(SVMmdl, xTr);
-dif = yTr-yPred_tr;
 
 
 
